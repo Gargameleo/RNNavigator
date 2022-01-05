@@ -3,5 +3,8 @@ module.exports = {
   jsxBracketSameLine: true,
   singleQuote: true,
   trailingComma: 'all',
-  arrowParens: 'avoid',
+  arrowParens: 'always',
+  semi: true,
+  printWidth: 120,
+  // proseWrap: "preserve"
 };
