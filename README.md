@@ -280,9 +280,21 @@ npm run lint-staged
 
 ## Step 3: Install React-Navigation
 
+### Installation
+
+Install the required packages in your React Native project:
+
 ```bash
 npm install @react-navigation/native
 ```
+
+### Installing dependencies into a bare React Native project
+
+```bash
+npm install react-native-screens react-native-safe-area-context
+```
+
+Go to `ios` folder and run `pod install`.
 
 ## 4. Add Redux
 
