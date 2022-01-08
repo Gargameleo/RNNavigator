@@ -278,6 +278,82 @@ npm run lint-staged
 
 ## Step 2: Support App Center
 
+### 2-1: Add the SDK to the project
+
+In a terminal window opened at the root of a React Native project, enter the following line to add Crash and Analytics services to your app:
+
+```bash
+npm install appcenter appcenter-analytics appcenter-crashes --save-exact
+```
+
+### 2-2: Integrate the SDK
+
+#### 🍎 IOS
+
+In the `iOS` folder
+
+```bash
+cd app/ios
+```
+
+Run `pod install` from iOS directory to install CocoaPods dependencies.
+
+Open `app.xcworkspace` file, select the project -> right click -> select `New Files...`.
+
+Filter `Property` at search bar and add a `Property List` file named as `AppCenter-Config.plist`
+
+Open `AppCenter-Config.plist` as source code in the Xcode and copy the below content.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+      <key>AppSecret</key>
+      <string>your-ios-appsecret-from-appcenter</string>
+    </dict>
+</plist>
+```
+
+**Modify** the app's `AppDelegate.m` file to include code for starting SDK:
+
+Add these lines to import section above the `#if DEBUG` or `#ifdef FB_SONARKIT_ENABLED` declaration (if present):
+
+```objc
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
+```
+
+Add these lines to the `didFinishLaunchingWithOptions` method
+
+```objc
+[AppCenterReactNative register];
+[AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+[AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+```
+
+#### 🤖 Android
+
+Create a new file with the filename `appcenter-config.json` in `android/app/src/main/assets/` with the following content:
+
+```json
+{
+  "app_secret": "your-android-appsecret-from-appcenter"
+}
+```
+
+**Modify** the app's `res/values/strings.xml` to include the following lines:
+
+```xml
+<string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+<string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+```
+
+### 2-3: Explore Data
+
+Now build and launch your app, then go to the Analytics section. You should see one active user and at least one session! The charts will get more relevant as you get more users. Once your app actually crashes, you will have Crashes data show up as well.
+
 ## Step 3: Install React-Navigation
 
 ```bash
