@@ -370,7 +370,47 @@ npm install @react-navigation/native
 npm install react-native-screens react-native-safe-area-context
 ```
 
-Go to `ios` folder and run `pod install`.
+#### For iOS
+
+Run `npx pod-install ios`.
+
+#### For Android
+
+`react-native-screens` package requires one additional configuration step to properly work on Android devices. Edit `MainActivity.java` file which is located in `android/app/src/main/java/app/MainActivity.java`
+
+Add the following code to the body of `MainActivity` class:
+
+```java
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(null);
+}
+```
+
+and make sure to add an import statement at the top of this file:
+
+```java
+import android.os.Bundle;
+```
+
+This change is required to avoid crashes related to View state being not persisted consistently across Activity restarts.
+
+Now, we need to wrap the whole app in NavigationContainer. Usually you'd do this in your entry file, such as index.js or App.js:
+
+```javascript
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+
+export default function App() {
+  return (
+    <NavigationContainer>{/* Rest of your app code */}</NavigationContainer>
+  );
+}
+```
+
+Note: When you use a navigator (such as stack navigator), you'll need to follow the installation instructions of that navigator for any additional dependencies. If you're getting an error "Unable to resolve module", you need to install that module in your project.
+
+Now you are ready to build and run your app on the device/simulator.
 
 ## 4. Add Redux
 
