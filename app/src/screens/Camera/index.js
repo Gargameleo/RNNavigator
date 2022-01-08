@@ -4,17 +4,17 @@ import {View, Text} from 'react-native';
 
 import styles from './styles';
 
-const Component = () => {
+const Camera = () => {
   const {container} = styles;
 
   return (
     <View style={container}>
-      <Text>Component !</Text>
+      <Text>Camera Page !</Text>
     </View>
   );
 };
 
-Component.propTypes = {};
-Component.defaultProps = {};
+Camera.propTypes = {};
+Camera.defaultProps = {};
 
-export default Component;
+export default Camera;

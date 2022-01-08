@@ -4,17 +4,17 @@ import {View, Text} from 'react-native';
 
 import styles from './styles';
 
-const Component = () => {
+const Chat = () => {
   const {container} = styles;
 
   return (
     <View style={container}>
-      <Text>Component !</Text>
+      <Text>Chat Page !</Text>
     </View>
   );
 };
 
-Component.propTypes = {};
-Component.defaultProps = {};
+Chat.propTypes = {};
+Chat.defaultProps = {};
 
-export default Component;
+export default Chat;

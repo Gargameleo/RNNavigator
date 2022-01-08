@@ -13,6 +13,7 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
+    "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "appcenter": "4.3.0",

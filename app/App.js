@@ -11,13 +11,13 @@ import type {Node} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-import AppStackNavigator from './src/navigators/AppStackNavigator';
+import MainStackNavigator from './src/navigators/MainStackNavigator';
 
 const App: () => Node = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <AppStackNavigator />
+        <MainStackNavigator />
       </NavigationContainer>
     </SafeAreaProvider>
   );

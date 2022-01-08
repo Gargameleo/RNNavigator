@@ -4,17 +4,17 @@ import {View, Text} from 'react-native';
 
 import styles from './styles';
 
-const Login = () => {
+const Register = () => {
   const {container} = styles;
 
   return (
     <View style={container}>
-      <Text>Login Page !</Text>
+      <Text>Register Page !</Text>
     </View>
   );
 };
 
-Login.propTypes = {};
-Login.defaultProps = {};
+Register.propTypes = {};
+Register.defaultProps = {};
 
-export default Login;
+export default Register;

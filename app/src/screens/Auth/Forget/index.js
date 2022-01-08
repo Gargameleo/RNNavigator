@@ -4,17 +4,17 @@ import {View, Text} from 'react-native';
 
 import styles from './styles';
 
-const Component = () => {
+const Forget = () => {
   const {container} = styles;
 
   return (
     <View style={container}>
-      <Text>Component !</Text>
+      <Text>Forget Password Page !</Text>
     </View>
   );
 };
 
-Component.propTypes = {};
-Component.defaultProps = {};
+Forget.propTypes = {};
+Forget.defaultProps = {};
 
-export default Component;
+export default Forget;

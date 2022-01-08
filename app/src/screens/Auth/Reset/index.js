@@ -4,17 +4,17 @@ import {View, Text} from 'react-native';
 
 import styles from './styles';
 
-const Login = () => {
+const Reset = () => {
   const {container} = styles;
 
   return (
     <View style={container}>
-      <Text>Login Page !</Text>
+      <Text>Reset Password !</Text>
     </View>
   );
 };
 
-Login.propTypes = {};
-Login.defaultProps = {};
+Reset.propTypes = {};
+Reset.defaultProps = {};
 
-export default Login;
+export default Reset;

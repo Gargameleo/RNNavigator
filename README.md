@@ -424,6 +424,12 @@ npm install @react-navigation/native-stack
 
 Create an AppNavigator which contains two navigators, one is `MainStackNavigator`, the other one is `LoginStackNavigator`.
 
+### 4-3 Install tab-based navigation
+
+```bash
+npm install @react-navigation/bottom-tabs
+```
+
 ## 4. Add Redux
 
 ## 5.Setup DEV UAT Production Environment

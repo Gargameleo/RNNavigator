@@ -4,17 +4,17 @@ import {View, Text} from 'react-native';
 
 import styles from './styles';
 
-const Login = () => {
+const Profile = () => {
   const {container} = styles;
 
   return (
     <View style={container}>
-      <Text>Login Page !</Text>
+      <Text>Profile Page !</Text>
     </View>
   );
 };
 
-Login.propTypes = {};
-Login.defaultProps = {};
+Profile.propTypes = {};
+Profile.defaultProps = {};
 
-export default Login;
+export default Profile;
