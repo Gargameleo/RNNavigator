@@ -1,14 +1,16 @@
-# React-Native Project Set up
+# React-Native Project Setup
 
 ## Step 1. Support ESLint, Prettier and Conventional Commits
 
 ### Setup Eslint
 
+#### Installation
+
 ```bash
 npm install eslint --save-dev
 ```
 
-### Config ESLint with Airbnb Package
+#### Config ESLint with Airbnb Package
 
 Creating a ESLint configuration file with running:
 
@@ -231,7 +233,17 @@ In the `pacakge.json` file, add
 Add `commit-msg` file at your root directory with the below command:
 
 ```bash
-cd app && npx husky add .husky/commit-msg 'npx --no-install commitlint --edit "$1"'
+cd app && npx husky add .husky/commit-msg
+```
+
+Now go to `.husky/commit-msg` file, add the below code to the file
+
+```bash
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+cd app
+npx --no-install commitlint --edit "$1"
 ```
 
 #### Support lint-staged with pre-commit git hook
@@ -260,23 +272,20 @@ Now go to `.husky/pre-commit` file, add the below code to the file
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+cd app
 npm run lint-staged
 ```
 
-#
+## Step 2: Support App Center
+
+## Step 3: Install React-Navigation
 
 ```bash
 npm install @react-navigation/native
 ```
 
-## 2. 创建文件结构
+## 4. Add Redux
 
-## 3.添加 Redux
+## 5.Setup DEV UAT Production Environment
 
-## 4.添加 DEV UAT Production 开发环境
-
-## 5. 添加全局颜色
-
-## 6. 添加 Eslint 标准
-
-## App Center Status
+## 6. Support Theme
