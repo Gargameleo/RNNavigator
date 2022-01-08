@@ -412,6 +412,18 @@ Note: When you use a navigator (such as stack navigator), you'll need to follow 
 
 Now you are ready to build and run your app on the device/simulator.
 
+## 4. Integrate a login stack view and a bottom tabs view for main pages in the app
+
+### 4-1 Install native stack navigator
+
+```bash
+npm install @react-navigation/native-stack
+```
+
+### 4-2 Create an AppNavigator
+
+Create an AppNavigator which contains two navigators, one is `MainStackNavigator`, the other one is `LoginStackNavigator`.
+
 ## 4. Add Redux
 
 ## 5.Setup DEV UAT Production Environment
