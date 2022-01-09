@@ -1,15 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, Text} from 'react-native';
+import { View, Button } from 'react-native';
 
 import styles from './styles';
 
-const Home = () => {
-  const {container} = styles;
+const Home = ({ navigation }) => {
+  const { container } = styles;
 
   return (
     <View style={container}>
-      <Text>Home Page !</Text>
+      <Button
+        title="Go to details page"
+        onPress={() => {
+          navigation.navigate('Details');
+        }}
+      />
     </View>
   );
 };
