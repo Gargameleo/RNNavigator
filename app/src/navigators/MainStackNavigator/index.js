@@ -25,7 +25,11 @@ const MainStackNavigator = () => {
         </>
       ) : (
         <>
-          <Stack.Screen name="login" component={Login} />
+          <Stack.Screen
+            name="login"
+            component={Login}
+            options={{ headerShown: false, animationTypeForReplace: token ? 'push' : 'pop' }}
+          />
           <Stack.Screen name="register" component={Register} />
           <Stack.Screen name="forget" component={Forget} />
           <Stack.Screen name="reset" component={Reset} />
