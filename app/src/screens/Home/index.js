@@ -12,7 +12,7 @@ const Home = ({ navigation }) => {
       <Button
         title="Go to details page"
         onPress={() => {
-          navigation.navigate('Details');
+          navigation.navigate('details');
         }}
       />
     </View>

@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
 import authReducer from './reducers/auth';
+import themeReducer from './reducers/theme';
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -11,7 +12,7 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware());
 
-const rootReducer = combineReducers({ auth: authReducer });
+const rootReducer = combineReducers({ auth: authReducer, theme: themeReducer });
 
 export default () => {
   return createStore(rootReducer, enhancer);
