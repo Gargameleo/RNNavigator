@@ -12,15 +12,15 @@ import Reset from '../../screens/Auth/Reset';
 
 import Details from '../../screens/Details';
 
-import { appDefaultTheme, appDarkTheme } from '../../theme';
+import { appDefaultTheme, appDarkTheme } from '../../helpers/theme';
 
 const Stack = createNativeStackNavigator();
 
-const MainStackNavigator = () => {
+const RootStackNavigator = () => {
   const { token } = useSelector((state) => state.auth);
 
   return (
-    <NavigationContainer theme={appDarkTheme}>
+    <NavigationContainer>
       <Stack.Navigator>
         {token ? (
           <>
@@ -44,4 +44,4 @@ const MainStackNavigator = () => {
   );
 };
 
-export default MainStackNavigator;
+export default RootStackNavigator;
