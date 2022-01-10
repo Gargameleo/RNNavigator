@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { View, Button, Text } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Switch } from 'react-native-paper';
 
 import styles from './styles';
@@ -9,16 +10,23 @@ import { THEMES, useTheme } from '../../contexts/ThemeProvider';
 const Home = ({ navigation }) => {
   const { container } = styles;
 
-  const { theme, changeTheme } = useTheme();
+  const { theme, setThemeMode } = useTheme();
 
-  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+  const [isSwitchOn, setIsSwitchOn] = React.useState(theme.dark);
 
   useEffect(() => {
-    const themeMode = isSwitchOn ? THEMES.Dark : THEMES.Light;
-    changeTheme(themeMode);
-  }, [changeTheme, isSwitchOn]);
+    setAppTheme(isSwitchOn ? THEMES.Dark : THEMES.Light);
+  }, [isSwitchOn, setAppTheme]);
 
-  console.log(theme);
+  const setAppTheme = useCallback(
+    async (themeMode) => {
+      try {
+        await AsyncStorage.setItem('themeMode', themeMode);
+        setThemeMode(themeMode);
+      } catch (e) {}
+    },
+    [setThemeMode],
+  );
 
   return (
     <View style={[container, { backgroundColor: theme.backgroundColor }]}>
