@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { View, Button } from 'react-native';
 
@@ -50,8 +49,5 @@ const Login = ({ navigation }) => {
     </View>
   );
 };
-
-Login.propTypes = {};
-Login.defaultProps = {};
 
 export default Login;

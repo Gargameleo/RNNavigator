@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 
 import styles from './styles';
 
 const Register = () => {
-  const {container} = styles;
+  const { container } = styles;
 
   return (
     <View style={container}>
@@ -13,8 +12,5 @@ const Register = () => {
     </View>
   );
 };
-
-Register.propTypes = {};
-Register.defaultProps = {};
 
 export default Register;
