@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 
 import styles from './styles';
 
 const Chat = () => {
-  const {container} = styles;
+  const { container } = styles;
 
   return (
     <View style={container}>
@@ -13,8 +12,5 @@ const Chat = () => {
     </View>
   );
 };
-
-Chat.propTypes = {};
-Chat.defaultProps = {};
 
 export default Chat;

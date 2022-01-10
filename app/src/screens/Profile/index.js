@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { View, Button } from 'react-native';
 
@@ -24,8 +23,5 @@ const Profile = () => {
     </View>
   );
 };
-
-Profile.propTypes = {};
-Profile.defaultProps = {};
 
 export default Profile;

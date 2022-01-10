@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 
 import styles from './styles';
@@ -13,8 +12,5 @@ const Details = () => {
     </View>
   );
 };
-
-Details.propTypes = {};
-Details.defaultProps = {};
 
 export default Details;

@@ -12,7 +12,9 @@ import { Provider } from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import configStore from './src/store/configStore';
-import MainStackNavigator from './src/navigators/MainStackNavigator';
+import RootStackNavigator from './src/navigators/RootStackNavigator';
+
+import ThemeProvider from './src/contexts/ThemeProvider';
 
 const store = configStore();
 
@@ -20,7 +22,9 @@ const App: () => Node = () => {
   return (
     <Provider store={store}>
       <SafeAreaProvider>
-        <MainStackNavigator />
+        <ThemeProvider>
+          <RootStackNavigator />
+        </ThemeProvider>
       </SafeAreaProvider>
     </Provider>
   );
