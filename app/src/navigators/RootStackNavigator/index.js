@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider } from 'react-native-paper';
@@ -18,14 +18,13 @@ import { useTheme } from '../../contexts/ThemeProvider';
 const Stack = createNativeStackNavigator();
 
 const RootStackNavigator = () => {
-  const { token } = useSelector((state) => state.auth);
-
+  // const { token } = useSelector((state) => state.auth);
   const { theme } = useTheme();
 
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer theme={theme}>
-        <Stack.Navigator>
+        {/* <Stack.Navigator>
           {token ? (
             <>
               <Stack.Screen name="app-tabs" component={AppTabNavigator} options={{ headerShown: false }} />
@@ -43,6 +42,14 @@ const RootStackNavigator = () => {
               <Stack.Screen name="reset" component={Reset} />
             </>
           )}
+        </Stack.Navigator> */}
+        <Stack.Navigator>
+          <Stack.Screen name="login" component={Login} options={{ headerShown: false }} />
+          <Stack.Screen name="register" component={Register} />
+          <Stack.Screen name="forget" component={Forget} />
+          <Stack.Screen name="reset" component={Reset} />
+          <Stack.Screen name="app-tabs" component={AppTabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name="details" component={Details} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
