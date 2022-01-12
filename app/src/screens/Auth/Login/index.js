@@ -1,51 +1,55 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { View, Button } from 'react-native';
+// import { useDispatch } from 'react-redux';
+import { View } from 'react-native';
+import { Button } from 'react-native-paper';
 
-import { LOGIN } from '../../../store/constants/auth';
+// import { LOGIN } from '../../../store/constants/auth';
 
 import styles from './styles';
 
 const Login = ({ navigation }) => {
   const { container } = styles;
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const userInfo = {
-    username: 'leo',
-    token: 'token xxx',
-  };
+  // const userInfo = {
+  //   username: 'leo',
+  //   token: 'token xxx',
+  // };
 
   return (
     <View style={container}>
       <Button
-        title="Login"
         onPress={() => {
           console.log('login button pressed!');
-          dispatch({ type: LOGIN, payload: userInfo });
-        }}
-      />
+          navigation.navigate('app-tabs');
+          // dispatch({ type: LOGIN, payload: userInfo });
+        }}>
+        Login
+      </Button>
       <Button
-        title="Sign Up"
         onPress={() => {
           console.log('login button pressed!');
           navigation.navigate('register');
-        }}
-      />
+        }}>
+        Sign Up
+      </Button>
       <Button
         title="Forget Password"
         onPress={() => {
           console.log('login button pressed!');
           navigation.navigate('forget');
-        }}
-      />
+        }}>
+        Forget Password
+      </Button>
       <Button
         title="Reset Password"
         onPress={() => {
           console.log('login button pressed!');
           navigation.navigate('reset');
-        }}
-      />
+        }}>
+        Reset Password
+      </Button>
     </View>
   );
 };
