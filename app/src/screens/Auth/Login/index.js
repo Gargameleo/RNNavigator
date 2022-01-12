@@ -24,8 +24,7 @@ const Login = ({ navigation }) => {
           console.log('login button pressed!');
           navigation.navigate('app-tabs');
           // dispatch({ type: LOGIN, payload: userInfo });
-        }}
-      >
+        }}>
         Login
       </Button>
       <Text>Login</Text>
@@ -33,24 +32,21 @@ const Login = ({ navigation }) => {
         onPress={() => {
           console.log('login button pressed!');
           navigation.navigate('register');
-        }}
-      >
+        }}>
         Sign Up
       </Button>
       <Button
         onPress={() => {
           console.log('login button pressed!');
           navigation.navigate('forget');
-        }}
-      >
+        }}>
         Forget Password
       </Button>
       <Button
         onPress={() => {
           console.log('login button pressed!');
           navigation.navigate('reset');
-        }}
-      >
+        }}>
         Reset Password
       </Button>
     </View>
