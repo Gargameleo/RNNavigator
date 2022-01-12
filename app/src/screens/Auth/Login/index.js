@@ -1,6 +1,6 @@
 import React from 'react';
 // import { useDispatch } from 'react-redux';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 
 // import { LOGIN } from '../../../store/constants/auth';
@@ -24,30 +24,33 @@ const Login = ({ navigation }) => {
           console.log('login button pressed!');
           navigation.navigate('app-tabs');
           // dispatch({ type: LOGIN, payload: userInfo });
-        }}>
+        }}
+      >
         Login
       </Button>
+      <Text>Login</Text>
       <Button
         onPress={() => {
           console.log('login button pressed!');
           navigation.navigate('register');
-        }}>
+        }}
+      >
         Sign Up
       </Button>
       <Button
-        title="Forget Password"
         onPress={() => {
           console.log('login button pressed!');
           navigation.navigate('forget');
-        }}>
+        }}
+      >
         Forget Password
       </Button>
       <Button
-        title="Reset Password"
         onPress={() => {
           console.log('login button pressed!');
           navigation.navigate('reset');
-        }}>
+        }}
+      >
         Reset Password
       </Button>
     </View>
