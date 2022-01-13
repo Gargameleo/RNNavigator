@@ -8,7 +8,7 @@ import Login from '../../../src/screens/Auth/Login';
 describe('Test Login Screen', () => {
   afterEach(cleanup);
 
-  test('it should contain 4!', () => {
+  it('should contain 4!', () => {
     const component = <Login />;
 
     const { getAllByRole } = render(component);
