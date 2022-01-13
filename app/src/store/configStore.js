@@ -13,6 +13,6 @@ const enhancer = composeEnhancers(applyMiddleware());
 
 const rootReducer = combineReducers({ auth: authReducer });
 
-export default () => {
-  return createStore(rootReducer, enhancer);
+export default (reducers = rootReducer, initState = {}) => {
+  return createStore(reducers, initState, enhancer);
 };

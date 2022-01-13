@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { View, Button, Text } from 'react-native';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Switch } from 'react-native-paper';
@@ -8,6 +9,8 @@ import styles from './styles';
 import { THEMES, useTheme } from '../../contexts/ThemeProvider';
 
 const Home = ({ navigation }) => {
+  const { username } = useSelector((state) => state.auth);
+
   const { container } = styles;
 
   const { theme, setThemeMode } = useTheme();
@@ -37,7 +40,7 @@ const Home = ({ navigation }) => {
         }}
       />
       <Switch value={isSwitchOn} onValueChange={() => setIsSwitchOn(!isSwitchOn)} />
-      <Text>{theme.dark.toString()}</Text>
+      <Text>Login User: {username}</Text>
     </View>
   );
 };

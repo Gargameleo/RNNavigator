@@ -27,8 +27,6 @@ describe('Test Login Screen', () => {
 
     const element = getAllByRole(Button);
 
-    console.log(element);
-
     expect(element.length).toBe(4);
   });
 });

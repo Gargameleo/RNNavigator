@@ -1,32 +1,37 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { combineReducers } from 'redux';
+import { Provider, useSelector } from 'react-redux';
 import { cleanup, render, fireEvent } from '@testing-library/react-native';
 
+import authReducer from '../../src/store/reducers/auth';
 import configStore from '../../src/store/configStore';
 
 import ThemeProvider from '../../src/contexts/ThemeProvider';
 import RootStackNavigator from '../../src/navigators/RootStackNavigator';
 
 describe('Test Root Stack Navigator', () => {
-  let store;
-  let component;
+  const original = console.error;
 
   beforeEach(() => {
-    store = configStore();
+    console.error = jest.fn();
+  });
 
-    component = (
+  afterEach(() => {
+    cleanup();
+  });
+
+  it('should go to Home Screen when click login button', async () => {
+    jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
+
+    const store = configStore();
+
+    const component = (
       <Provider store={store}>
         <ThemeProvider>
           <RootStackNavigator />
         </ThemeProvider>
       </Provider>
     );
-  });
-
-  afterEach(cleanup);
-
-  it('should go to Home Screen when click login button', async () => {
-    jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 
     const { getByTestId, findByText } = render(component);
 
@@ -39,8 +44,40 @@ describe('Test Root Stack Navigator', () => {
     expect(newHeader).toBeTruthy();
   });
 
+  it('should login with the user Tony', async () => {
+    const store = configStore();
+
+    const component = (
+      <Provider store={store}>
+        <ThemeProvider>
+          <RootStackNavigator />
+        </ThemeProvider>
+      </Provider>
+    );
+
+    const { getByTestId, getByText } = render(component);
+
+    const toClick = await getByTestId('login-btn');
+
+    fireEvent.press(toClick);
+
+    const userText = await getByText(/leo/i);
+
+    expect(userText).toBeTruthy();
+  });
+
   it('should go to Sign Up Screen when click Sign up button', async () => {
     jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
+
+    const store = configStore();
+
+    const component = (
+      <Provider store={store}>
+        <ThemeProvider>
+          <RootStackNavigator />
+        </ThemeProvider>
+      </Provider>
+    );
 
     const { getByTestId, findByText } = render(component);
 
