@@ -19,7 +19,6 @@ const Stack = createNativeStackNavigator();
 
 const RootStackNavigator = () => {
   const { token } = useSelector((state) => state.auth);
-
   const { theme } = useTheme();
 
   return (

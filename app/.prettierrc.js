@@ -6,5 +6,6 @@ module.exports = {
   arrowParens: 'always',
   semi: true,
   printWidth: 120,
+  bracketSameLine: true,
   // proseWrap: "preserve"
 };

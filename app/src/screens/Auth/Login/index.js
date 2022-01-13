@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { View, Button } from 'react-native';
+import { View } from 'react-native';
+import { Button } from 'react-native-paper';
 
-import { LOGIN } from '../../../store/constants/auth';
+import { actions } from '../../../store/actions/auth';
 
 import styles from './styles';
 
@@ -19,33 +20,35 @@ const Login = ({ navigation }) => {
   return (
     <View style={container}>
       <Button
-        title="Login"
+        testID="login-btn"
         onPress={() => {
-          console.log('login button pressed!');
-          dispatch({ type: LOGIN, payload: userInfo });
-        }}
-      />
+          console.log('Login button pressed!');
+          dispatch({ type: actions.LOGIN, payload: userInfo });
+        }}>
+        Login
+      </Button>
       <Button
-        title="Sign Up"
+        testID="register-btn"
         onPress={() => {
-          console.log('login button pressed!');
+          console.log('Sign Up button pressed!');
           navigation.navigate('register');
-        }}
-      />
+        }}>
+        Sign Up
+      </Button>
       <Button
-        title="Forget Password"
         onPress={() => {
-          console.log('login button pressed!');
+          console.log('Forget button pressed!');
           navigation.navigate('forget');
-        }}
-      />
+        }}>
+        Forget Password
+      </Button>
       <Button
-        title="Reset Password"
         onPress={() => {
-          console.log('login button pressed!');
+          console.log('Reset button pressed!');
           navigation.navigate('reset');
-        }}
-      />
+        }}>
+        Reset Password
+      </Button>
     </View>
   );
 };
