@@ -20,6 +20,7 @@ const Login = ({ navigation }) => {
   return (
     <View style={container}>
       <Button
+        testID="login-btn"
         onPress={() => {
           console.log('login button pressed!');
           navigation.navigate('app-tabs');
