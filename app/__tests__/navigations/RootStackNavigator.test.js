@@ -1,17 +1,13 @@
 import React from 'react';
-import { combineReducers } from 'redux';
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import { cleanup, render, fireEvent } from '@testing-library/react-native';
 
-import authReducer from '../../src/store/reducers/auth';
 import configStore from '../../src/store/configStore';
 
 import ThemeProvider from '../../src/contexts/ThemeProvider';
 import RootStackNavigator from '../../src/navigators/RootStackNavigator';
 
 describe('Test Root Stack Navigator', () => {
-  const original = console.error;
-
   beforeEach(() => {
     console.error = jest.fn();
   });
@@ -21,8 +17,6 @@ describe('Test Root Stack Navigator', () => {
   });
 
   it('should go to Home Screen when click login button', async () => {
-    jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
-
     const store = configStore();
 
     const component = (
@@ -67,8 +61,6 @@ describe('Test Root Stack Navigator', () => {
   });
 
   it('should go to Sign Up Screen when click Sign up button', async () => {
-    jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
-
     const store = configStore();
 
     const component = (
