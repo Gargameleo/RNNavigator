@@ -38,7 +38,7 @@ describe('Test Root Stack Navigator', () => {
     expect(newHeader).toBeTruthy();
   });
 
-  it('should login with the user Tony', async () => {
+  it('should login with the user Leo', async () => {
     const store = configStore();
 
     const component = (
@@ -55,7 +55,7 @@ describe('Test Root Stack Navigator', () => {
 
     fireEvent.press(toClick);
 
-    const userText = await getByText(/leo/i);
+    const userText = await getByText(/Login User: leo/i);
 
     expect(userText).toBeTruthy();
   });
