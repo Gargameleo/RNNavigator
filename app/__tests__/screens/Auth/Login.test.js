@@ -8,15 +8,12 @@ import configStore from '../../../src/store/configStore';
 import Login from '../../../src/screens/Auth/Login';
 
 describe('Test Login Screen', () => {
-  let store;
-
-  beforeEach(() => {
-    store = configStore();
-  });
+  beforeEach(() => {});
 
   afterEach(cleanup);
 
   it('should contain 4 buttons!', () => {
+    const store = configStore();
     const component = (
       <Provider store={store}>
         <Login />
