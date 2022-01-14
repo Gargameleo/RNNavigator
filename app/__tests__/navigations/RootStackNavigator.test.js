@@ -38,7 +38,7 @@ describe('Test Root Stack Navigator', () => {
     expect(newHeader).toBeTruthy();
   });
 
-  it('should login with the user Leo', async () => {
+  it('should login with the user leo', async () => {
     const store = configStore();
 
     const component = (
