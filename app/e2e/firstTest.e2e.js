@@ -1,6 +1,6 @@
 describe('Example', () => {
   beforeAll(async () => {
-    await device.launchApp();
+    await device.launchApp({});
   });
 
   beforeEach(async () => {
@@ -8,7 +8,8 @@ describe('Example', () => {
   });
 
   it('should have login button', async () => {
-    await expect(element(by.id('login-btn'))).toBeVisible();
+    const btn = element(by.id('login-btn'));
+    await expect(btn).toBeVisible();
   });
 
   it('should show home screen with login user after tap login button', async () => {
