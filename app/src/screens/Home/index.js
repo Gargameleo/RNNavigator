@@ -40,7 +40,7 @@ const Home = ({ navigation }) => {
         }}
       />
       <Switch value={isSwitchOn} onValueChange={() => setIsSwitchOn(!isSwitchOn)} />
-      <Text>Login User: {username}</Text>
+      <Text testID="login-user-text">Login User: {username}</Text>
     </View>
   );
 };
