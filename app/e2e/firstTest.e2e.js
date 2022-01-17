@@ -1,3 +1,6 @@
+/* eslint-env jest */
+import { device, element, by } from 'detox';
+
 describe('Example', () => {
   beforeAll(async () => {
     await device.launchApp();
