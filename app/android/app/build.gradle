@@ -131,7 +131,7 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.app"
+        applicationId "com.gargameleo.hk.rnnavigator"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -153,6 +153,14 @@ android {
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
+        }
+        release {
+            if (project.hasProperty('RN_NAVIGATOR_STORE_FILE')) {
+                storeFile file(RN_NAVIGATOR_STORE_FILE)
+                storePassword RN_NAVIGATOR_STORE_PASSWORD
+                keyAlias RN_NAVIGATOR_KEY_ALIAS
+                keyPassword RN_NAVIGATOR_KEY_PASSWORD
+            }
         }
     }
     buildTypes {
