@@ -20,6 +20,9 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+*.mobileprovision
+*.zip
+*.cer
 
 # Android/IntelliJ
 #
