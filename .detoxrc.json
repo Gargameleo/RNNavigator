@@ -9,10 +9,9 @@
       "build": "xcodebuild -workspace ios/RNNavigator.xcworkspace -scheme RNNavigator -sdk iphonesimulator -derivedDataPath ios/build"
     },
     "ios.release": {
-      "name": "RNNavigator",
       "type": "ios.app",
       "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/RNNavigator.app",
-      "build": "xcodebuild -workspace ios/RNNavigator.xcworkspace -scheme RNNavigator -sdk iphonesimulator -derivedDataPath ios/build -quiet"
+      "build": "xcodebuild -workspace ios/RNNavigator.xcworkspace -scheme RNNavigator -configuration Release -sdk iphonesimulator -derivedDataPath ios/build -quiet"
     },
     "android.debug": {
       "type": "android.apk",
