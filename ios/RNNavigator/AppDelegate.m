@@ -15,10 +15,10 @@
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 
-static void InitializeFlipper(UIApplication *RNNavigatorlication) {
+static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
-  SKDescriptorMRNNavigatorer *layoutDescriptorMRNNavigatorer = [[SKDescriptorMRNNavigatorer alloc] initWithDefaults];
-  [client addPlugin:[[FlipperKitLayoutPlugin alloc] initWithRootNode:RNNavigatorlication withDescriptorMRNNavigatorer:layoutDescriptorMRNNavigatorer]];
+  SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc] initWithDefaults];
+  [client addPlugin:[[FlipperKitLayoutPlugin alloc] initWithRootNode:application withDescriptorMapper:layoutDescriptorMapper]];
   [client addPlugin:[[FKUserDefaultsPlugin alloc] initWithSuiteName:nil]];
   [client addPlugin:[FlipperKitReactPlugin new]];
   [client addPlugin:[[FlipperKitNetworkPlugin alloc] initWithNetworkAdapter:[SKIOSNetworkAdapter new]]];
@@ -28,10 +28,10 @@ static void InitializeFlipper(UIApplication *RNNavigatorlication) {
 
 @implementation AppDelegate
 
-- (BOOL)RNNavigatorlication:(UIApplication *)RNNavigatorlication didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #ifdef FB_SONARKIT_ENABLED
-  InitializeFlipper(RNNavigatorlication);
+  InitializeFlipper(application);
 #endif
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
