@@ -1,4 +1,4 @@
-package com.app;
+package com.gargameleo.hk.rnnavigator;
 
 import android.os.Bundle;
 
