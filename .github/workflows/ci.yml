@@ -127,6 +127,8 @@ jobs:
           java-version: 17
 
       - name: Install emulator and create avd
+        env: 
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: | 
           export PATH=$PATH:$ANDROID_HOME/emulator
           export PATH=$PATH:$ANDROID_HOME/tools
