@@ -44,4 +44,6 @@ jobs:
       uses: actions/setup-node@v2
 
     - name: Run Test
-      run: npm ci && npm run test
+      run: |
+        npm ci
+        npm run test
