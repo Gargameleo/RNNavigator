@@ -59,7 +59,7 @@ jobs:
 
       - name: Pod install
         run: |
-          cd ios
+          cd ./ios
           pod install
           cd ..
       
