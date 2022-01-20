@@ -42,8 +42,8 @@ jobs:
     - name: Check out repository code
       uses: actions/checkout@v2
 
-    - name: Use Node.js to run test
-      uses: actions/setup-node@v2
+    # - name: Use Node.js to run test
+    #   uses: actions/setup-node@v2
 
     - name: Run Test
       run: |
