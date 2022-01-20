@@ -130,7 +130,6 @@ jobs:
           arch: arm64-v8a
           profile: pixel
           avd-name: Pixel_API_29_AOSP
-          
       - shell: bash
         run: |
           npm start &
