@@ -32,8 +32,9 @@ jobs:
     
   test:
     - runs-on: macos-latest
+    
     steps:
-      - name: Check out repository code
-      - uses: actions/checkout@v2
-      - name: Use Node.js to run test
-      - run: npm test
+    - name: Check out repository code
+    - uses: actions/checkout@v2
+    - name: Use Node.js to run test
+    - run: npm test
