@@ -31,8 +31,9 @@ jobs:
     - run: npm run build --if-present
     
   test:
-    - runs-on: macos-latest
     
+    runs-on: macos-latest
+
     steps:
     - name: Check out repository code
     - uses: actions/checkout@v2
