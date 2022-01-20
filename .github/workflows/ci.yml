@@ -20,6 +20,7 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+    - name: Check out repository code
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
@@ -32,5 +33,7 @@ jobs:
   test:
     - runs-on: macos-latest
     steps:
-      - name: run test
+      - name: Check out repository code
+      - uses: actions/checkout@v2
+      - name: Use Node.js to run test
       - run: npm test
