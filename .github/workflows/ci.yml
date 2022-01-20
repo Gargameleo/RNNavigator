@@ -122,7 +122,7 @@ jobs:
           echo $ANDROID_HOME
 
       - name: Install emulator and create avd
-      - run: | 
+        run: | 
           $ANDROID_HOME/tools/bin/sdkmanager --install emulator
           $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-31;default;x86_64"
           $ANDROID_HOME/tools/bin/sdkmanager --licenses
