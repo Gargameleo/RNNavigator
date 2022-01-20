@@ -111,6 +111,9 @@ jobs:
           node-version: 16.x
           cache: "npm"
 
+      - name: Install project npm dependencies
+        run: npm ci
+
       - name: Install JDK 8
         uses: actions/setup-java@v2
         with:
@@ -123,10 +126,6 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      - run: |
-          java -version
-          echo $ANDROID_HOME
-
       - name: Install emulator and create avd
         run: | 
           export PATH=$PATH:$ANDROID_HOME/emulator
@@ -138,11 +137,20 @@ jobs:
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) sdkmanager --licenses
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) avdmanager create avd -n Pixel_5_API_31 -d pixel --package "system-images;android-31;default;x86_64"
 
-      # - name: Install project npm dependencies
-      #   run: npm ci
+      - name: Boot emulator
+        run: -verbose -no-window -no-audio -gpu swiftshader_indirect @Pixel_5_API_31 &
 
-      # - name: Detox build
-      #   run: npm run e2e:build android.emu.debug
+      - name: Detox build
+        run: npm run e2e:build android.emu.debug
+
+      - name: Detox Test
+        run: |
+          npm start &
+          METRO_BUNDLER_PID=$!
+          npm run e2e:test android.emu.debug
+          DETOX_EXIT_CODE=$?
+          kill $METRO_BUNDLER_PID
+          exit $DETOX_EXIT_CODE
 
       # - name: Detox test
       #   uses: reactivecircus/android-emulator-runner@v2
