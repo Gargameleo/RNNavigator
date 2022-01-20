@@ -36,6 +36,7 @@ jobs:
 
     steps:
     - name: Check out repository code
-    - uses: actions/checkout@v2
+      uses: actions/checkout@v2
     - name: Use Node.js to run test
-    - run: npm test
+      uses: actions/setup-node@v2
+    - run: npm run test
