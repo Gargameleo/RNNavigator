@@ -154,6 +154,7 @@ jobs:
         run: |
           npm start &
           METRO_BUNDLER_PID=$!
+          npm run android
           npm run e2e:test android.emu.debug
           DETOX_EXIT_CODE=$?
           kill $METRO_BUNDLER_PID
