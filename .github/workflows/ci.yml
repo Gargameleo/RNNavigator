@@ -95,9 +95,9 @@ jobs:
 
     runs-on: macos-latest
 
-    strategy:
-      matrix:
-        java-version: [8, 17]
+    # strategy:
+    #   matrix:
+    #     java-version: [8, 17]
         # api-level: [29, 31, 32]
         # target: [default, google_apis]
 
@@ -111,11 +111,17 @@ jobs:
       #     node-version: 16.x
       #     cache: "npm"
 
-      - name: Install JDK
+      - name: Install JDK 8
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
-          java-version: ${{ matrix.java-version }}
+          java-version: 8
+
+      - name: Install JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: 17
 
       - run: |
           java -version
