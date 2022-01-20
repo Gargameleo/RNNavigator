@@ -48,10 +48,23 @@ jobs:
           npm ci
           npm run test
 
-  # e2e_ios:
-  #   needs: test
+  e2e_ios:
+    needs: test
 
-  #   runs-on: macos-latest
+    runs-on: macos-latest
 
-  #   steps:
-  #     - name: Check out repository
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Pod install
+        run: |
+          cd ios
+          pod install
+          cd ..
+      
+      - name: Detox build
+        run: npm run e2e:build ios.sim.debug
+
+      - name: Detox test
+        run: npm run e2e:test ios.sim.debug
