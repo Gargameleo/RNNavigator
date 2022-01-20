@@ -95,10 +95,11 @@ jobs:
 
     runs-on: macos-latest
 
-    # strategy:
-    #   matrix:
-    #     api-level: [29, 31, 32]
-    #     target: [default, google_apis]
+    strategy:
+      matrix:
+        java-version: [8, 17]
+        # api-level: [29, 31, 32]
+        # target: [default, google_apis]
 
     steps:
       - name: Check out repository
@@ -113,28 +114,28 @@ jobs:
       - name: Install JDK
         uses: actions/setup-java@v2
         with:
-          distribution: 'temurin'
-          java-version: 17
+          java-version: ${{ matrix.java-version }}
+      - run: java -version
 
-      - name: Install project npm dependencies
-        run: npm ci
+      # - name: Install project npm dependencies
+      #   run: npm ci
 
-      - name: Detox build
-        run: npm run e2e:build android.emu.debug
+      # - name: Detox build
+      #   run: npm run e2e:build android.emu.debug
 
-      - name: Detox test
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 31
-          target: default
-          arch: x86_64
-          profile: pixel
-          avd-name: Pixel_5_API_31
-      - shell: bash
-        run: |
-          npm start &
-          METRO_BUNDLER_PID=$!
-          npm run e2e:test android.emu.debug
-          DETOX_EXIT_CODE=$?
-          kill $METRO_BUNDLER_PID
-          exit $DETOX_EXIT_CODE
+      # - name: Detox test
+      #   uses: reactivecircus/android-emulator-runner@v2
+      #   with:
+      #     api-level: 31
+      #     target: default
+      #     arch: x86_64
+      #     profile: pixel
+      #     avd-name: Pixel_5_API_31
+      # - shell: bash
+      #   run: |
+      #     npm start &
+      #     METRO_BUNDLER_PID=$!
+      #     npm run e2e:test android.emu.debug
+      #     DETOX_EXIT_CODE=$?
+      #     kill $METRO_BUNDLER_PID
+      #     exit $DETOX_EXIT_CODE
