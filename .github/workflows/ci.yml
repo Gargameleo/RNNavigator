@@ -138,7 +138,7 @@ jobs:
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) avdmanager create avd -n Pixel_5_API_31 -d pixel --package "system-images;android-31;default;x86_64"
 
       - name: Boot emulator
-        run: -verbose -no-window -no-audio -gpu swiftshader_indirect @Pixel_5_API_31 &
+        run: emulator -verbose -no-window -no-audio -gpu swiftshader_indirect @Pixel_5_API_31 &
 
       - name: Detox build
         run: npm run e2e:build android.emu.debug
