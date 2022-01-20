@@ -89,3 +89,56 @@ jobs:
           DETOX_EXIT_CODE=$?
           kill $METRO_BUNDLER_PID
           exit $DETOX_EXIT_CODE
+
+  e2e_android:
+    # needs: build
+
+    runs-on: macos-latest
+
+    # strategy:
+    #   matrix:
+    #     api-level: [29, 31, 32]
+    #     target: [default, google_apis]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: "npm"
+
+      - name: Install JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Install project npm dependencies
+        run: npm ci
+
+      - name: Pod install
+        run: |
+          cd ./ios
+          pod install
+          cd ..
+      
+      - name: Detox build
+        run: npm run e2e:build android.emu.debug
+
+      - name: Detox test
+        uses: reactivecircus/android-emulator-runner@v2
+        run: |
+          api-level: 29
+          target: default
+          arch: arm64-v8a
+          profile: pixel
+          avd-name: Pixel_API_29_AOSP
+          npm start &
+          METRO_BUNDLER_PID=$!
+          npm run e2e:test android.emu.debug
+          DETOX_EXIT_CODE=$?
+          kill $METRO_BUNDLER_PID
+          exit $DETOX_EXIT_CODE
