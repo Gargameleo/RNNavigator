@@ -10,52 +10,58 @@ on:
     branches: [dev]
 
 jobs:
-  build:
-    runs-on: macos-latest
+  # build:
+  #   runs-on: macos-latest
 
-    strategy:
-      matrix:
-        node-version: [17.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+  #   strategy:
+  #     matrix:
+  #       node-version: [17.x]
+  #       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
+  #     - name: Use Node.js ${{ matrix.node-version }}
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #         cache: "npm"
 
-      - run: npm ci
-      - run: npm run build --if-present
+  #     - run: npm ci
+  #     - run: npm run build --if-present
+  #     - run: npm run test
 
-  test:
-    needs: build
+  # test:
+  #   needs: build
 
-    runs-on: macos-latest
+  #   runs-on: macos-latest
 
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v2
 
-      # - name: Use Node.js to run test
-      #   uses: actions/setup-node@v2
+  #     # - name: Use Node.js to run test
+  #     #   uses: actions/setup-node@v2
 
-      - name: Run Test
-        run: |
-          npm ci
-          npm run test
+  #     - name: Run Test
+  #       run: |
+  #         npm ci
+  #         npm run test
 
   e2e_ios:
-    needs: test
+    needs: build
 
     runs-on: macos-latest
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+
+      - name: Check folder strcuture
+        run: |
+          pwd
+          ls
 
       - name: Pod install
         run: |
