@@ -49,46 +49,46 @@ jobs:
   #         npm ci
   #         npm run test
 
-  e2e_ios:
-    # needs: build
+  # e2e_ios:
+  #   # needs: build
 
-    runs-on: macos-latest
+  #   runs-on: macos-latest
 
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Check out repository
+  #       uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-          cache: "npm"
+  #     - name: Use Node.js ${{ matrix.node-version }}
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 16.x
+  #         cache: "npm"
 
-      - name: Install iOS Plaform dependencies
-        run: |
-          brew tap wix/brew
-          brew install applesimutils
+  #     - name: Install iOS Plaform dependencies
+  #       run: |
+  #         brew tap wix/brew
+  #         brew install applesimutils
 
-      - name: Install project npm dependencies
-        run: npm ci
+  #     - name: Install project npm dependencies
+  #       run: npm ci
 
-      - name: Pod install
-        run: |
-          cd ./ios
-          pod install
-          cd ..
+  #     - name: Pod install
+  #       run: |
+  #         cd ./ios
+  #         pod install
+  #         cd ..
       
-      - name: Detox build
-        run: npm run e2e:build ios.sim.debug
+  #     - name: Detox build
+  #       run: npm run e2e:build ios.sim.debug
 
-      - name: Detox test
-        run: |
-          npm start &
-          METRO_BUNDLER_PID=$!
-          npm run e2e:test ios.sim.debug
-          DETOX_EXIT_CODE=$?
-          kill $METRO_BUNDLER_PID
-          exit $DETOX_EXIT_CODE
+  #     - name: Detox test
+  #       run: |
+  #         npm start &
+  #         METRO_BUNDLER_PID=$!
+  #         npm run e2e:test ios.sim.debug
+  #         DETOX_EXIT_CODE=$?
+  #         kill $METRO_BUNDLER_PID
+  #         exit $DETOX_EXIT_CODE
 
   e2e_android:
     # needs: build
@@ -125,11 +125,11 @@ jobs:
       - name: Detox test
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: 31
           target: default
-          arch: arm64-v8a
+          arch: x86_64
           profile: pixel
-          avd-name: Pixel_API_29_AOSP
+          avd-name: Pixel_5_API_31
       - shell: bash
         run: |
           npm start &
