@@ -116,7 +116,16 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
-      - run: java -version
+      - run: |
+          java -version
+          echo $ANDROID_HOME
+
+      - name: Install emulator and create avd
+      - run: | 
+          $ANDROID_HOME/tools/bin/sdkmanager --install emulator
+          $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-31;default;x86_64"
+          $ANDROID_HOME/tools/bin/sdkmanager --licenses
+          $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_5_API_31 -d pixel --package "system-images;android-31;default;x86_64"
 
       # - name: Install project npm dependencies
       #   run: npm ci
