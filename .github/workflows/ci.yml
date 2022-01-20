@@ -119,23 +119,19 @@ jobs:
       - name: Install project npm dependencies
         run: npm ci
 
-      - name: Pod install
-        run: |
-          cd ./ios
-          pod install
-          cd ..
-      
       - name: Detox build
         run: npm run e2e:build android.emu.debug
 
       - name: Detox test
         uses: reactivecircus/android-emulator-runner@v2
-        run: |
+        with:
           api-level: 29
           target: default
           arch: arm64-v8a
           profile: pixel
           avd-name: Pixel_API_29_AOSP
+      - shell: bash
+        run: |
           npm start &
           METRO_BUNDLER_PID=$!
           npm run e2e:test android.emu.debug
