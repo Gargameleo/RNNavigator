@@ -114,6 +114,7 @@ jobs:
       - name: Install JDK
         uses: actions/setup-java@v2
         with:
+          distribution: '<distribution>'
           java-version: ${{ matrix.java-version }}
       - run: java -version
 
