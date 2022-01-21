@@ -132,22 +132,23 @@ jobs:
           export PATH=$PATH:$ANDROID_HOME/tools
           export PATH=$PATH:$ANDROID_HOME/tools/bin
           export PATH=$PATH:$ANDROID_HOME/platform-tools
-          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) sdkmanager --install emulator
-          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) sdkmanager "system-images;android-31;default;x86_64"
-          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) sdkmanager --licenses
-          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) avdmanager create avd -n Pixel_5_API_31 -d pixel --package "system-images;android-31;default;x86_64"
+          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) sdkmanager --list
+          # JAVA_HOME=$(/usr/libexec/java_home -v 1.8) sdkmanager --install emulator
+          # JAVA_HOME=$(/usr/libexec/java_home -v 1.8) sdkmanager "system-images;android-31;default;x86_64"
+          # JAVA_HOME=$(/usr/libexec/java_home -v 1.8) sdkmanager --licenses
+          # JAVA_HOME=$(/usr/libexec/java_home -v 1.8) avdmanager create avd -n Pixel_5_API_31 -d pixel --package "system-images;android-31;default;x86_64"
 
       # - name: Detox build
       #   run: npm run e2e:build android.emu.debug
 
-      - name: Boot emulator
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-        run: |
-          echo "Starting emulator"
-          nohup $ANDROID_HOME/tools/bin/emulator -verbose -no-window -no-audio -gpu host @Pixel_5_API_31 &
-          $ANDROID_HOME/platform-tools/adb devices
-          echo "Emulator started"
+      # - name: Boot emulator
+      #   env:
+      #     ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      #   run: |
+      #     echo "Starting emulator"
+      #     nohup $ANDROID_HOME/tools/bin/emulator -verbose -no-window -no-audio -gpu host @Pixel_5_API_31 &
+      #     $ANDROID_HOME/platform-tools/adb devices
+      #     echo "Emulator started"
 # $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
 
       # - name: Run an android app
