@@ -145,8 +145,8 @@ jobs:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: |
           echo "Starting emulator"
-          nohup emulator -verbose -no-window -no-audio -gpu host @Pixel_5_API_31 &
-          adb devices
+          nohup $ANDROID_HOME/tools/bin/sdkmanager -verbose -no-window -no-audio -gpu host @Pixel_5_API_31 &
+          $ANDROID_HOME/platform-tools/adb devices
           echo "Emulator started"
 # $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
 
