@@ -190,7 +190,7 @@ jobs:
           api-level: 31
           target: default
           arch: x86_64
-          profile: Pixel
+          profile: pixel
           avd-name: Pixel_5_API_31
           script: ./gradlew connectedCheck
       
