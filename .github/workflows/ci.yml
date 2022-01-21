@@ -175,6 +175,7 @@ jobs:
           arch: arm64-v8a
           profile: pixel
           avd-name: Pixel_5_API_31
+          script: ./gradlew connectedCheck
       
       - run: 
           adb devices
