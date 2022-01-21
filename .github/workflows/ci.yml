@@ -105,7 +105,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
@@ -139,8 +139,8 @@ jobs:
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) sdkmanager --licenses
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) avdmanager create avd -n Pixel_5_API_31 -d pixel --package "system-images;android-31;default;x86_64"
 
-      - name: Detox build
-        run: npm run e2e:build android.emu.debug
+      # - name: Detox build
+      #   run: npm run e2e:build android.emu.debug
 
       - name: Boot emulator
         run: |
@@ -154,14 +154,14 @@ jobs:
       #   run:
       #     npm run android
 
-      - name: Detox Test
-        run: |
-          npm start &
-          METRO_BUNDLER_PID=$!
-          npm run e2e:test android.emu.debug
-          DETOX_EXIT_CODE=$?
-          kill $METRO_BUNDLER_PID
-          exit $DETOX_EXIT_CODE
+      # - name: Detox Test
+      #   run: |
+      #     npm start &
+      #     METRO_BUNDLER_PID=$!
+      #     npm run e2e:test android.emu.debug
+      #     DETOX_EXIT_CODE=$?
+      #     kill $METRO_BUNDLER_PID
+      #     exit $DETOX_EXIT_CODE
 
       # - name: Detox test
       #   uses: reactivecircus/android-emulator-runner@v2
