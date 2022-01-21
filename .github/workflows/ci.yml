@@ -134,6 +134,7 @@ jobs:
           export PATH=$PATH:$ANDROID_HOME/platform-tools
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) sdkmanager --install emulator
           which emulator
+          yes | JAVA_HOME=$(/usr/libexec/java_home -v 1.8) sdkmanager "system-images;android-31;default;x86_64"
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) avdmanager create avd -n Pixel_5_API_31 -d pixel --package "system-images;android-31;default;x86_64"
           emulator -list-avds
 
