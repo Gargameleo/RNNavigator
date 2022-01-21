@@ -146,7 +146,7 @@ jobs:
         run: |
           echo "Starting emulator"
           nohup emulator -verbose -no-window -no-audio -gpu swiftshader_indirect @Pixel_5_API_31 &
-          $ANDROID_HOME/platform-tools/adb devices
+          adb devices
           echo "Emulator started"
 # $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
 
