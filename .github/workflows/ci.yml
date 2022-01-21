@@ -167,13 +167,30 @@ jobs:
       #     kill $METRO_BUNDLER_PID
       #     exit $DETOX_EXIT_CODE
 
+      - name: Gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+
+      - name: AVD cache
+        uses: actions/cache@v2
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-31
+
       - name: Detox test
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 31
           target: default
           arch: x86_64
-          profile: pixel
+          profile: Pixel
           avd-name: Pixel_5_API_31
           script: ./gradlew connectedCheck
       
