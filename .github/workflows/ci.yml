@@ -93,7 +93,7 @@ jobs:
     needs: test
 
     runs-on: macos-latest
-    
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -102,7 +102,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install project npm dependencies
         run: npm ci
@@ -110,13 +110,13 @@ jobs:
       - name: Install JDK 8
         uses: actions/setup-java@v2
         with:
-          distribution: 'temurin'
+          distribution: "temurin"
           java-version: 8
 
       - name: Install JDK 17
         uses: actions/setup-java@v2
         with:
-          distribution: 'temurin'
+          distribution: "temurin"
           java-version: 17
 
       - name: Install emulator and create avd
@@ -138,8 +138,7 @@ jobs:
           $ANDROID_HOME/platform-tools/adb devices
 
       - name: Show Devices
-        run:
-          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/platform-tools/adb devices
+        run: JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/platform-tools/adb devices
 
       - name: Detox build
         run: npm run e2e:build android.emu.debug
@@ -166,8 +165,10 @@ jobs:
           $ANDROID_HOME/platform-tools/adb devices
 
       - name: Run an android app
-        run:
+        run: |
+          echo '---------- Run the app with npm run android --------'
           npm run android
+          echo '---------- Detox test --------'
           npm run e2e:test android.emu.debug
           DETOX_EXIT_CODE=$?
           exit $DETOX_EXIT_CODE
