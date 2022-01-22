@@ -144,22 +144,22 @@ jobs:
       - name: Detox build
         run: npm run e2e:build android.emu.debug
 
-      - name: Gradle cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+      # - name: Gradle cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       ~/.gradle/caches
+      #       ~/.gradle/wrapper
+      #     key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
 
-      - name: AVD cache
-        uses: actions/cache@v2
-        id: avd-cache
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: avd-31
+      # - name: AVD cache
+      #   uses: actions/cache@v2
+      #   id: avd-cache
+      #   with:
+      #     path: |
+      #       ~/.android/avd/*
+      #       ~/.android/adb*
+      #     key: avd-31
 
       - name: Double check emulator status
         run: |
@@ -168,10 +168,12 @@ jobs:
       - name: Run an android app
         run:
           npm run android
-
-      - name: Detox Test
-        run: |
           npm run e2e:test android.emu.debug
           DETOX_EXIT_CODE=$?
           exit $DETOX_EXIT_CODE
-          
+
+      # - name: Detox Test
+      #   run: |
+      #     npm run e2e:test android.emu.debug
+      #     DETOX_EXIT_CODE=$?
+      #     exit $DETOX_EXIT_CODE
