@@ -144,7 +144,7 @@ jobs:
           echo '----------Start adb server--------------'
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/platform-tools/adb start-server
           echo '----------Start Emulator--------------'
-          $ANDROID_HOME/emulator/emulator -port 18725 -verbose -no-window -no-audio -gpu swiftshader_indirect @Pixel_5_API_31 &
+          $ANDROID_HOME/tools/emulator -port 18725 -verbose -no-window -no-audio -gpu swiftshader_indirect @Pixel_5_API_31 &
           echo '----------Show Devices--------------'
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/platform-tools/adb devices
         
