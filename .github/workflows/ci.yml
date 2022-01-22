@@ -184,6 +184,12 @@ jobs:
           DETOX_EXIT_CODE=$?
           exit $DETOX_EXIT_CODE
 
+      - name: Detox Test Twice
+        run: |
+          npm run e2e:test android.emu.debug
+          DETOX_EXIT_CODE=$?
+          exit $DETOX_EXIT_CODE
+
       # - name: Detox Test
       #   run: |
       #     npm start &
