@@ -10,97 +10,91 @@ on:
     branches: [dev]
 
 jobs:
-  # build:
-  #   runs-on: macos-latest
+  build:
+    runs-on: macos-latest
 
-  #   strategy:
-  #     matrix:
-  #       node-version: [17.x]
-  #       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    strategy:
+      matrix:
+        node-version: [17.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-  #   steps:
-  #     - name: Check out repository code
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
 
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-  #         cache: "npm"
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
 
-  #     - run: npm ci
-  #     - run: npm run build --if-present
-  #     - run: npm run test
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm run test
 
-  # test:
-  #   needs: build
-
-  #   runs-on: macos-latest
-
-  #   steps:
-  #     - name: Check out repository code
-  #       uses: actions/checkout@v2
-
-  #     # - name: Use Node.js to run test
-  #     #   uses: actions/setup-node@v2
-
-  #     - name: Run Test
-  #       run: |
-  #         npm ci
-  #         npm run test
-
-  # e2e_ios:
-  #   # needs: build
-
-  #   runs-on: macos-latest
-
-  #   steps:
-  #     - name: Check out repository
-  #       uses: actions/checkout@v2
-
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: 16.x
-  #         cache: "npm"
-
-  #     - name: Install iOS Plaform dependencies
-  #       run: |
-  #         brew tap wix/brew
-  #         brew install applesimutils
-
-  #     - name: Install project npm dependencies
-  #       run: npm ci
-
-  #     - name: Pod install
-  #       run: |
-  #         cd ./ios
-  #         pod install
-  #         cd ..
-
-  #     - name: Detox build
-  #       run: npm run e2e:build ios.sim.debug
-
-  #     - name: Detox test
-  #       run: |
-  #         npm start &
-  #         METRO_BUNDLER_PID=$!
-  #         npm run e2e:test ios.sim.debug
-  #         DETOX_EXIT_CODE=$?
-  #         kill $METRO_BUNDLER_PID
-  #         exit $DETOX_EXIT_CODE
-
-  e2e_android:
-    # needs: build
+  test:
+    needs: build
 
     runs-on: macos-latest
 
-    # strategy:
-    #   matrix:
-    #     java-version: [8, 17]
-    # api-level: [29, 31, 32]
-    # target: [default, google_apis]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
 
+      # - name: Use Node.js to run test
+      #   uses: actions/setup-node@v2
+
+      - name: Run Test
+        run: |
+          npm ci
+          npm run test
+
+  e2e_ios:
+    needs: build
+
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: "npm"
+
+      - name: Install iOS Plaform dependencies
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
+
+      - name: Install project npm dependencies
+        run: npm ci
+
+      - name: Pod install
+        run: |
+          cd ./ios
+          pod install
+          cd ..
+
+      - name: Detox build
+        run: npm run e2e:build ios.sim.debug
+
+      - name: Detox test
+        run: |
+          npm start &
+          METRO_BUNDLER_PID=$!
+          npm run e2e:test ios.sim.debug
+          DETOX_EXIT_CODE=$?
+          kill $METRO_BUNDLER_PID
+          exit $DETOX_EXIT_CODE
+
+  e2e_android:
+    needs: build
+
+    runs-on: macos-latest
+    
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -128,10 +122,6 @@ jobs:
 
       - name: Install emulator and create avd
         run: |
-          export PATH=$PATH:$ANDROID_HOME/emulator
-          export PATH=$PATH:$ANDROID_HOME/tools
-          export PATH=$PATH:$ANDROID_HOME/tools/bin
-          export PATH=$PATH:$ANDROID_HOME/platform-tools
           echo '----------Install Emulator--------------'
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/tools/bin/sdkmanager --install emulator
           $ANDROID_HOME/emulator/emulator -version
@@ -146,7 +136,7 @@ jobs:
           echo '----------Start Emulator--------------'
           $ANDROID_HOME/tools/emulator -port 18725 -verbose -no-window -no-audio -gpu swiftshader_indirect @Pixel_5_API_31 &
           echo '----------Show Devices--------------'
-          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/platform-tools/adb devices
+          $ANDROID_HOME/platform-tools/adb devices
         
       #     which emulator
       #     JAVA_HOME=$(/usr/libexec/java_home -v 1.8) sdkmanager "system-images;android-31;default;x86_64"
@@ -163,13 +153,9 @@ jobs:
       - name: Detox build
         run: npm run e2e:build android.emu.debug
 
-      - name: Boot emulator
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      - name: Double check emulator status
         run: |
-          echo "Starting emulator"
           $ANDROID_HOME/platform-tools/adb devices
-          echo "Emulator started"
 
 #  nohup $ANDROID_HOME/tools/bin/emulator -verbose -no-window -no-audio -gpu host @Pixel_5_API_31 &
 # $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
