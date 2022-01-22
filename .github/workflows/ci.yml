@@ -133,6 +133,7 @@ jobs:
           export PATH=$PATH:$ANDROID_HOME/tools/bin
           export PATH=$PATH:$ANDROID_HOME/platform-tools
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/tools/bin/sdkmanager --install emulator
+          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-31;default;x86_64"
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/platform-tools/adb devices
           echo '------------------------'
 
