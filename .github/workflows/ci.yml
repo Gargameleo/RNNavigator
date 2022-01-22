@@ -134,6 +134,7 @@ jobs:
           export PATH=$PATH:$ANDROID_HOME/platform-tools
           echo '----------Install Emulator--------------'
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/tools/bin/sdkmanager --install emulator
+          $ANDROID_HOME/emulator/emulator -version
           echo '----------Download Images--------------'
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-31;default;x86_64"
           echo '----------Create AVD--------------'
