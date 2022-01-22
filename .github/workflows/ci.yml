@@ -138,10 +138,12 @@ jobs:
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-31;default;x86_64"
           echo '----------Create AVD--------------'
           JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_5_API_31 -d pixel --package "system-images;android-31;default;x86_64"
-          echo '----------Show Devices--------------'
-          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/platform-tools/adb devices
+          echo '----------Start adb--------------'
+          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/platform-tools/adb start-server
           echo '----------Show Emulators--------------'
           $ANDROID_HOME/emulator/emulator -list-avds
+          echo '----------Show Devices--------------'
+          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/platform-tools/adb start-server
 
 
       #     which emulator
