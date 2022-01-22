@@ -143,7 +143,7 @@ jobs:
           echo '----------Show Emulators--------------'
           $ANDROID_HOME/emulator/emulator -list-avds
           echo '----------Show Devices--------------'
-          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/platform-tools/adb start-server
+          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/platform-tools/adb devices
 
 
       #     which emulator
