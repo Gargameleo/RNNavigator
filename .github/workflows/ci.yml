@@ -174,18 +174,18 @@ jobs:
 #  nohup $ANDROID_HOME/tools/bin/emulator -verbose -no-window -no-audio -gpu host @Pixel_5_API_31 &
 # $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
 
-      # - name: Run an android app
-      #   run:
-      #     npm run android
+      - name: Run an android app
+        run:
+          npm run android
 
-      - name: Detox Test
-        run: |
-          npm start &
-          METRO_BUNDLER_PID=$!
-          npm run e2e:test android.emu.debug
-          DETOX_EXIT_CODE=$?
-          kill $METRO_BUNDLER_PID
-          exit $DETOX_EXIT_CODE
+      # - name: Detox Test
+      #   run: |
+      #     npm start &
+      #     METRO_BUNDLER_PID=$!
+      #     npm run e2e:test android.emu.debug
+      #     DETOX_EXIT_CODE=$?
+      #     kill $METRO_BUNDLER_PID
+      #     exit $DETOX_EXIT_CODE
 
       # - name: Gradle cache
       #   uses: actions/cache@v2
