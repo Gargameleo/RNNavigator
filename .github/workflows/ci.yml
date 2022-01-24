@@ -164,14 +164,14 @@ jobs:
         run: |
           $ANDROID_HOME/platform-tools/adb devices
 
-      - name: Run an android app
-        run: |
-          echo '---------- Run the app with npm run android --------'
-          npm run android
-          echo '---------- Detox test --------'
-          npm run e2e:test android.emu.debug
-          DETOX_EXIT_CODE=$?
-          exit $DETOX_EXIT_CODE
+      # - name: Run an android app
+      #   run: |
+      #     echo '---------- Run the app with npm run android --------'
+      #     npm run android
+      #     echo '---------- Detox test --------'
+      #     npm run e2e:test android.emu.debug
+      #     DETOX_EXIT_CODE=$?
+      #     exit $DETOX_EXIT_CODE
 
       # - name: Detox Test
       #   run: |
