@@ -5,32 +5,177 @@ name: React Native CI
 
 on:
   push:
-    branches: [ dev ]
+    branches: [dev]
   pull_request:
-    branches: [ dev ]
+    branches: [dev]
 
 jobs:
   build:
-
     runs-on: macos-latest
 
     strategy:
       matrix:
-        node-version: [17.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - run: npm ci
+      - run: npm run build --if-present
+
   test:
-    - runs-on: macos-latest
+    needs: build
+
+    runs-on: macos-latest
+
     steps:
-      - name: run test
-      - run: npm test
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js to run test
+        uses: actions/setup-node@v2
+
+      - name: Run Test
+        run: |
+          npm ci
+          npm run test
+
+  e2e_ios:
+    needs: test
+
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: "npm"
+
+      - name: Install iOS Plaform dependencies
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
+
+      - name: Install project npm dependencies
+        run: npm ci
+
+      - name: Pod install
+        run: |
+          cd ./ios
+          pod install
+          cd ..
+
+      - name: Detox build
+        run: npm run e2e:build ios.sim.debug
+
+      - name: Detox test
+        run: |
+          npm start &
+          METRO_BUNDLER_PID=$!
+          npm run e2e:test ios.sim.debug
+          DETOX_EXIT_CODE=$?
+          kill $METRO_BUNDLER_PID
+          exit $DETOX_EXIT_CODE
+
+  e2e_android:
+    needs: test
+
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: "npm"
+
+      - name: Install project npm dependencies
+        run: npm ci
+
+      - name: Install JDK 8
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 8
+
+      - name: Install JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Install emulator and create avd
+        run: |
+          echo '----------Install Emulator--------------'
+          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/tools/bin/sdkmanager --install emulator
+          $ANDROID_HOME/emulator/emulator -version
+          echo '----------Download Images--------------'
+          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-31;default;x86_64"
+          echo '----------Create AVD--------------'
+          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_5_API_31 -d pixel --package "system-images;android-31;default;x86_64"
+          echo '----------Show Available Emulators--------------'
+          $ANDROID_HOME/emulator/emulator -list-avds
+          echo '----------Start adb server--------------'
+          JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/platform-tools/adb start-server
+          echo '----------Start Emulator--------------'
+          $ANDROID_HOME/tools/emulator -port 18725 -verbose -no-window -no-audio -gpu swiftshader_indirect @Pixel_5_API_31 &
+          echo '----------Show Devices--------------'
+          $ANDROID_HOME/platform-tools/adb devices
+
+      - name: Show Devices
+        run: JAVA_HOME=$(/usr/libexec/java_home -v 1.8) $ANDROID_HOME/platform-tools/adb devices
+
+      - name: Detox build
+        run: npm run e2e:build android.emu.debug
+
+      # - name: Gradle cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       ~/.gradle/caches
+      #       ~/.gradle/wrapper
+      #     key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+
+      # - name: AVD cache
+      #   uses: actions/cache@v2
+      #   id: avd-cache
+      #   with:
+      #     path: |
+      #       ~/.android/avd/*
+      #       ~/.android/adb*
+      #     key: avd-31
+
+      - name: Double check emulator status
+        run: |
+          $ANDROID_HOME/platform-tools/adb devices
+
+      # - name: Run an android app
+      #   run: |
+      #     echo '---------- Run the app with npm run android --------'
+      #     npm run android
+      #     echo '---------- Detox test --------'
+      #     npm run e2e:test android.emu.debug
+      #     DETOX_EXIT_CODE=$?
+      #     exit $DETOX_EXIT_CODE
+
+      # - name: Detox Test
+      #   run: |
+      #     npm run e2e:test android.emu.debug
+      #     DETOX_EXIT_CODE=$?
+      #     exit $DETOX_EXIT_CODE
+
