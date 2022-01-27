@@ -194,6 +194,6 @@ jobs:
       - name: Install fastlane
         uses: maierj/fastlane-action@v2.0.1
         with: 
-          lane: 'beta'
+          lane: 'closed_beta'
           subdirectory: 'ios'
 
