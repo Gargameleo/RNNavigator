@@ -80,6 +80,7 @@ platform :ios do
       workspace: "RNNavigator.xcworkspace",
       scheme: "RNNavigator",
       export_method: "app-store",
+      export_xcargs: "-allowProvisioningUpdates"
       export_options: {
         provisioningProfiles: { 
             DEVELOPER_APP_ID => PROVISIONING_PROFILE_SPECIFIER
