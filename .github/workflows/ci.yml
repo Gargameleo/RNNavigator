@@ -179,46 +179,46 @@ jobs:
   #     #     DETOX_EXIT_CODE=$?
   #     #     exit $DETOX_EXIT_CODE
 
-  deploy_ios:
-    runs-on: macos-latest
+  # deploy_ios:
+  #   runs-on: macos-latest
 
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Check out repository
+  #       uses: actions/checkout@v2
 
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-          cache: "npm"
+  #     - name: Use Node.js 16.x
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 16.x
+  #         cache: "npm"
 
-      - run: npm ci
-      - run: npm run build --if-present
+  #     - run: npm ci
+  #     - run: npm run build --if-present
 
-      - name: Setup Ruby Environment
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: '3.0.3'
+  #     - name: Setup Ruby Environment
+  #       uses: actions/setup-ruby@v1
+  #       with:
+  #         ruby-version: '3.0.3'
 
-      - name: Deploy iOS app
-        uses: maierj/fastlane-action@v2.0.1
-        with: 
-          lane: 'closed_beta'
-          subdirectory: 'ios'
-        env:
-          APP_STORE_CONNECT_TEAM_ID: '${{ secrets.APP_STORE_CONNECT_TEAM_ID }}'
-          DEVELOPER_APP_ID: '${{ secrets.DEVELOPER_APP_ID }}'
-          DEVELOPER_APP_IDENTIFIER: '${{ secrets.DEVELOPER_APP_IDENTIFIER }}'
-          DEVELOPER_PORTAL_TEAM_ID: '${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}'
-          APPLE_ID: '${{ secrets.APPLE_ID }}'
-          MATCH_PASSWORD: '${{ secrets.MATCH_PASSWORD }}'
-          GIT_AUTHORIZATION: '${{ secrets.GIT_AUTHORIZATION }}'
-          PROVISIONING_PROFILE_SPECIFIER: '${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}'
-          TEMP_KEYCHAIN_PASSWORD: '${{ secrets.TEMP_KEYCHAIN_PASSWORD }}'
-          TEMP_KEYCHAIN_USER: '${{ secrets.TEMP_KEYCHAIN_USER }}'
-          APPLE_KEY_ID: '${{ secrets.APPLE_KEY_ID }}'
-          APPLE_ISSUER_ID: '${{ secrets.APPLE_ISSUER_ID }}'
-          APPLE_KEY_CONTENT: '${{ secrets.APPLE_KEY_CONTENT }}'
+  #     - name: Deploy iOS app
+  #       uses: maierj/fastlane-action@v2.0.1
+  #       with: 
+  #         lane: 'closed_beta'
+  #         subdirectory: 'ios'
+  #       env:
+  #         APP_STORE_CONNECT_TEAM_ID: '${{ secrets.APP_STORE_CONNECT_TEAM_ID }}'
+  #         DEVELOPER_APP_ID: '${{ secrets.DEVELOPER_APP_ID }}'
+  #         DEVELOPER_APP_IDENTIFIER: '${{ secrets.DEVELOPER_APP_IDENTIFIER }}'
+  #         DEVELOPER_PORTAL_TEAM_ID: '${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}'
+  #         APPLE_ID: '${{ secrets.APPLE_ID }}'
+  #         MATCH_PASSWORD: '${{ secrets.MATCH_PASSWORD }}'
+  #         GIT_AUTHORIZATION: '${{ secrets.GIT_AUTHORIZATION }}'
+  #         PROVISIONING_PROFILE_SPECIFIER: '${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}'
+  #         TEMP_KEYCHAIN_PASSWORD: '${{ secrets.TEMP_KEYCHAIN_PASSWORD }}'
+  #         TEMP_KEYCHAIN_USER: '${{ secrets.TEMP_KEYCHAIN_USER }}'
+  #         APPLE_KEY_ID: '${{ secrets.APPLE_KEY_ID }}'
+  #         APPLE_ISSUER_ID: '${{ secrets.APPLE_ISSUER_ID }}'
+  #         APPLE_KEY_CONTENT: '${{ secrets.APPLE_KEY_CONTENT }}'
 
   deploy_android:
     runs-on: macos-latest
@@ -245,18 +245,18 @@ jobs:
       - name: Configure Keystore
         run: |
           cd android
-          echo '$KEYSTORE_FILE' > rnnavigator.keystore.b64
+          echo "$KEYSTORE_FILE" > rnnavigator.keystore.b64
           base64 -d -i rnnavigator.keystore.b64 > app/rnnavigator.keystore
           echo "RN_NAVIGATOR_STORE_FILE=rnnavigator.keystore" >> ~/.gradle/gradle.properties
           echo "RN_NAVIGATOR_KEY_ALIAS=$KEYSTORE_KEY_ALIAS" >> ~/.gradle/gradle.properties
           echo "RN_NAVIGATOR_STORE_PASSWORD=$KEYSTORE_PASSWORD" >> ~/.gradle/gradle.properties
           echo "RN_NAVIGATOR_KEY_PASSWORD=$KEYSTORE_KEY_PASSWORD" >> ~/.gradle/gradle.properties
+          cat ~/.gradle/gradle.properties
         env:
           KEYSTORE_FILE: '${{ secrets.KEYSTORE_FILE }}'
           KEYSTORE_KEY_ALIAS: '${{ secrets.KEYSTORE_KEY_ALIAS }}'
           KEYSTORE_KEY_PASSWORD: '${{ secrets.KEYSTORE_KEY_PASSWORD }}'
           KEYSTORE_PASSWORD: '${{ secrets.KEYSTORE_PASSWORD }}'
-          PLAY_STORE_CREDENTZIALS: '${{ secrets.PLAY_STORE_CREDENTZIALS }}'
 
       - name: Create Google Play Config file
         run : |
@@ -264,7 +264,7 @@ jobs:
           echo "$PLAY_STORE_CREDENTZIALS" > play-store-credentials.json.b64
           base64 -d -i play-store-credentials.json.b64 > play-store-credentials.json
         env:
-          PLAY_CONFIG_JSON: ${{ secrets.PLAY_STORE_CREDENTZIALS }}
+          PLAY_STORE_CREDENTZIALS: ${{ secrets.PLAY_STORE_CREDENTZIALS }}
 
       - name: Deploy android app
         uses: maierj/fastlane-action@v2.0.1
