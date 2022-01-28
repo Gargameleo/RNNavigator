@@ -56,9 +56,11 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+*/fastlane/*.env
 
 # Bundle artifact
 *.jsbundle
 
 # CocoaPods
 /ios/Pods/
+/ios/*.lock

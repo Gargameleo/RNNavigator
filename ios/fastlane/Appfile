@@ -1,8 +1,8 @@
-app_identifier("com.gargameleo.hk.rnnavigator") # The bundle identifier of your app
-apple_id("tpf880725@gmail.com") # Your Apple email address
+app_identifier(ENV["DEVELOPER_APP_IDENTIFIER"]) # The bundle identifier of your app
+apple_id(ENV["APPLE_ID"]) # Your Apple email address
 
-itc_team_id("118471775") # App Store Connect Team ID
-team_id("F9H7243R6B") # Developer Portal Team ID
+itc_team_id(ENV["APP_STORE_CONNECT_TEAM_ID"]) # App Store Connect Team ID
+team_id(ENV["DEVELOPER_PORTAL_TEAM_ID"]) # Developer Portal Team ID
 
 # For more information about the Appfile, see:
 #     https://docs.fastlane.tools/advanced/#appfile
