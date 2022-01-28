@@ -240,7 +240,12 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: '3.0.3'
-        
+          
+      - name: Install JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17 
       
       - name: Configure Keystore
         run: |
